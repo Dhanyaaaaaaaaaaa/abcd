@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Orders API
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /orders:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_orders_get_200_response_inner'
+                type: array
+          description: A list of orders.
+      summary: List all orders
+  /orders/{orderId}:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_orders_get_200_response_inner'
+          description: Details of an order.
+      summary: Get details of an order
+components:
+  schemas:
+    _orders_get_200_response_inner:
+      example:
+        amount: 0.8008281904610115
+        id: id
+        status: status
+      properties:
+        id:
+          title: id
+          type: string
+        amount:
+          title: amount
+          type: number
+        status:
+          title: status
+          type: string
+      title: _orders_get_200_response_inner
+      type: object
